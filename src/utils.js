@@ -1,114 +1,100 @@
 export const locations = [
-    {
-        name: "Leipzig",
-        address: "Parker Street",
-        coordinates: { lat: 51.340199, lng: 12.360103 },
-        datesActive: "December 1825 - August 1826",
-        image: "Parker Street",
-        path: "parker.PNG",
-    },
-    {
-        name: "Bremen",
-        address: "St Thomas Street",
-        coordinates: { lat: 53.073635, lng: 8.806422 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Hamburg",
-        address: "St Thomas Street",
-        coordinates: { lat: 53.551086, lng: 9.993682 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Altdorf",
-        address: "St Thomas Street",
-        coordinates: { lat: 49.38635659894406, lng: 11.356256413153861 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Dillingen",
-        address: "St Thomas Street",
-        coordinates: { lat: 48.5790918, lng: 10.4940239 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Gottingen",
-        address: "St Thomas Street",
-        coordinates: { lat: 51.5389852305566, lng: 9.930185224089952 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Halle",
-        address: "St Thomas Street",
-        coordinates: { lat: 51.4824, lng: 11.9713 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Helmstedt",
-        address: "St Thomas Street",
-        coordinates: { lat: 52.22913335554221, lng: 11.003005262393707 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Ingolstadt",
-        address: "St Thomas Street",
-        coordinates: { lat: 48.764147777861545, lng: 11.426835445493083 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Jena",
-        address: "St Thomas Street",
-        coordinates: { lat: 50.9268186521636, lng: 11.588765295779986 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Tubingen",
-        address: "St Thomas Street",
-        coordinates: { lat: 48.51774850386232, lng: 9.057576544125407 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Künigsberg",
-        address: "St Thomas Street",
-        coordinates: { lat: 54.70634425557692, lng: 20.5015772150239 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Salzburg",
-        address: "St Thomas Street",
-        coordinates: { lat: 47.80044897990956, lng: 13.041178103608726 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
-    {
-        name: "Zurich",
-        address: "St Thomas Street",
-        coordinates: { lat: 47.370921267729905, lng: 8.538800789247004 },
-        datesActive: "June 1825 - c. September 1827",
-        image: "Chapel, St Thomas's Buildings",
-        path: "thomas.jpg",
-    },
+  {
+    name: "Bremen",
+    coordinates: { lat: 53.163635, lng: 8.609422 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1800, // University of Bremen
+  },
+  {
+    name: "Hamburg",
+    coordinates: { lat: 53.661086, lng: 9.81 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1700, // University of Hamburg
+  },
+  {
+    name: "Altdorf",
+    coordinates: { lat: 49.38635659894406, lng: 11.356256413153861 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1578, // University of Altdorf (historical)
+  },
+  {
+    name: "Dillingen",
+    coordinates: { lat: 48.5790918, lng: 10.4940239 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1549, // University of Dillingen (historical)
+  },
+  {
+    name: "Gottingen",
+    coordinates: { lat: 51.502985, lng: 9.895 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1734, // University of Göttingen
+  },
+  {
+    name: "Halle",
+    coordinates: { lat: 51.4724, lng: 11.88 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1694, // Martin Luther University of Halle-Wittenberg
+  },
+  {
+    name: "Leipzig",
+    coordinates: { lat: 51.28, lng: 12.18 },
+    image: "Parker Street",
+    path: "parker.PNG",
+    yearFounded: 1409, // University of Leipzig
+  },
+  {
+    name: "Helmstedt",
+    coordinates: { lat: 52.359133, lng: 10.996 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1576, // University of Helmstedt (historical)
+  },
+  {
+    name: "Ingolstadt",
+    coordinates: { lat: 48.764147777861545, lng: 11.426835445493083 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1472, // University of Ingolstadt (historical)
+  },
+  {
+    name: "Jena",
+    coordinates: { lat: 50.9268186521636, lng: 11.588765295779986 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1558, // University of Jena
+  },
+  {
+    name: "Tubingen",
+    coordinates: { lat: 48.51774850386232, lng: 9.057576544125407 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1477, // University of Tübingen
+  },
+  {
+    name: "Künigsberg",
+    coordinates: { lat: 54.70634425557692, lng: 20.5015772150239 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1544, // University of Königsberg (historical)
+  },
+  {
+    name: "Salzburg",
+    coordinates: { lat: 47.80044897990956, lng: 13.041178103608726 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1622, // University of Salzburg
+  },
+  {
+    name: "Zurich",
+    coordinates: { lat: 47.370921267729905, lng: 8.538800789247004 },
+    image: "Chapel, St Thomas's Buildings",
+    path: "thomas.jpg",
+    yearFounded: 1833, // University of Zurich
+  },
 ];

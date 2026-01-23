@@ -1,14 +1,26 @@
 <script>
   import { onMount } from "svelte";
+  import * as d3 from "d3";
   import { locations } from "./utils.js";
   import mapboxgl from "mapbox-gl";
   import "mapbox-gl/dist/mapbox-gl.css";
 
   let map,
+    start = 1400,
+    end = 1900,
+    width,
+    height,
     mapContainer,
+    current_university,
     hoveredId = null;
+
   mapboxgl.accessToken =
     "pk.eyJ1IjoidG9tYXN2YW5jaXNpbiIsImEiOiJjbTN1OXUzODUwZTEwMnFxdHd5NzA3cmNuIn0.vz2M0cTMfPvLAQ-wKMKbQA";
+
+  const margin = { top: 20, bottom: 20 };
+  $: innerHeight = height - margin.top - margin.bottom;
+  $: yScale = d3.scaleLinear().domain([start, end]).range([0, innerHeight]);
+  $: ticks = d3.range(start, end + 1, 50);
 
   // load map
   onMount(() => {
@@ -45,6 +57,7 @@
           },
           properties: {
             name: location.name,
+            yearFounded: location.yearFounded,
           },
         })),
       };
@@ -147,7 +160,7 @@
           ],
           "text-font": ["Montserrat Bold"],
           "text-anchor": "bottom",
-          "text-offset": [0, -0.4],
+          "text-offset": [0, 1.7],
           "text-allow-overlap": true,
         },
         paint: {
@@ -161,43 +174,104 @@
       // popups
       map.on("click", "location-circles", (e) => {
         const feature = e.features[0];
+        const [lng, lat] = feature.geometry.coordinates;
 
-        const popupHTML = `
-        <div class="popup-content">
-          <strong class="popup-title">${feature.properties.name}</strong>
-          <p class="popup-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-      `;
+        current_university = feature;
 
-        new mapboxgl.Popup({ offset: 15, maxWidth: "300px" }) // optional max width
-          .setLngLat(feature.geometry.coordinates)
-          .setHTML(popupHTML)
-          .addTo(map);
+        // Open info panel
+        d3.select("#location-info").style("right", "0px");
+        d3.select("#header").html(`
+      <h2>${feature.properties.name}</h2>
+    `);
+
+        // Calculate offset for 40% panel
+        const panelWidth = window.innerWidth * 0.4;
+        const offsetX = -panelWidth / 2; // move map center left
+
+        map.flyTo({
+          center: [lng, lat],
+          zoom: 9,
+          offset: [offsetX, 0],
+          speed: 0.8,
+          curve: 1.4,
+          essential: true,
+        });
       });
-
-      // locations.forEach((location) => {
-      //   new mapboxgl.Marker()
-      //     .setLngLat([location.coordinates.lng, location.coordinates.lat])
-      //     .setPopup(
-      //       new mapboxgl.Popup({ offset: 25 }) // add popups
-      //         .setHTML(`
-      //             <h3>${location.name}</h3>
-      //           `),
-      //     )
-      //     .addTo(map);
-      // });
     });
   });
+
+  // close details panel
+  function closeDetails() {
+    d3.select("#location-info").style("right", "-40%");
+    map.flyTo({
+      center: [11, 50],
+      zoom: 5,
+      speed: 0.8,
+      curve: 1.4,
+      essential: true,
+    });
+  }
+
+  $: console.log(current_university);
 </script>
 
 <main>
   <div id="map" bind:this={mapContainer}></div>
-  <div id="location-info"></div>
+  <div id="location-info">
+    <div id="header"></div>
+    <button id="close-details" on:click={closeDetails}>
+      <i class="fa fa-close" aria-hidden="true"></i>
+    </button>
+    <div id="details" bind:clientWidth={width} bind:clientHeight={height}>
+      <svg {width} {height}>
+        <g transform={`translate(${50}, ${margin.top})`}>
+          <!-- main line -->
+          <line
+            x1="0"
+            x2="0"
+            y1="0"
+            y2={innerHeight}
+            stroke="black"
+            stroke-width="2"
+          />
+
+          <!-- ticks + labels -->
+          {#each ticks as year}
+            <g transform={`translate(0, ${yScale(year)})`}>
+              <line x1="-6" x2="6" y1="0" y2="0" stroke="black" />
+              <text
+                x="-10"
+                y="4"
+                text-anchor="end"
+                font-family="Montserrat"
+                font-size="11"
+              >
+                {year}
+              </text>
+            </g>
+          {/each}
+
+          {#if current_university}
+            <circle
+              cx="0"
+              cy={yScale(current_university.properties.yearFounded)}
+              r="7"
+              fill="black"
+              stroke="black"
+            />
+            <text
+              x="15"
+              y={yScale(current_university.properties.yearFounded) + 4}
+              font-family="Montserrat"
+              font-size="14"
+            >
+              University Established
+            </text>
+          {/if}
+        </g>
+      </svg>
+    </div>
+  </div>
 </main>
 
 <style>
@@ -206,14 +280,67 @@
     width: 100%;
     height: 100vh;
   }
+
   :global(.mapboxgl-popup-content) {
     font-family: "Montserrat", sans-serif !important;
     font-weight: 350;
     font-size: 12px;
   }
+
   :global(.mapboxgl-popup-close-button) {
     font-family: "Montserrat", sans-serif !important;
     font-weight: 500;
     font-size: 20px;
+  }
+
+  #location-info {
+    position: absolute;
+    top: 0;
+    right: -40%;
+    width: 40%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    z-index: 10;
+    transition: right 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  #header {
+    position: relative;
+    text-align: center;
+  }
+
+  #close-details {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    background: none;
+    color: #000;
+    border: none;
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 2em;
+    cursor: pointer;
+    font-family: Montserrat;
+    transition: border 0.3s ease;
+  }
+
+  #details {
+    flex: 1;
+    overflow-y: auto;
+  }
+  svg {
+    display: block;
+    overflow: hidden;
   }
 </style>
