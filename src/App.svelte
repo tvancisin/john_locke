@@ -29,19 +29,32 @@
       style: "mapbox://styles/mapbox/light-v11",
       projection: "mercator",
       center: [11, 50],
-      zoom: 5,
+      zoom: 4.7,
     });
 
     map.on("load", () => {
-      map.addSource("portland", {
+      map.addSource("germany", {
         type: "raster",
         url: "mapbox://tomasvancisin.1mwrt593",
       });
 
       // adding the historical map
       map.addLayer({
-        id: "portland",
-        source: "portland",
+        id: "germany",
+        source: "germany",
+        type: "raster",
+      });
+
+      // second historical layer
+      map.addSource("kaliningrad", {
+        type: "raster",
+        url: "mapbox://tomasvancisin.2cefmsvl",
+      });
+
+      // adding the historical map
+      map.addLayer({
+        id: "kaliningrad",
+        source: "kaliningrad",
         type: "raster",
       });
 
