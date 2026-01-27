@@ -77,7 +77,7 @@ export const locations = [
     yearFounded: 1477, // University of Tübingen
   },
   {
-    name: "Künigsberg",
+    name: "Königsberg",
     coordinates: { lat: 54.70634425557692, lng: 20.5015772150239 },
     image: "Chapel, St Thomas's Buildings",
     path: "thomas.jpg",
